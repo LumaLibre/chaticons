@@ -1,0 +1,8 @@
+name: LumaChatIcons
+main: dev.jsinco.luma.chaticons.LumaChatIcons
+version: '${version}'
+author: Jsinco
+api-version: '1.21'
+depend:
+  - ChatHeads
+  - ItemsAdder
