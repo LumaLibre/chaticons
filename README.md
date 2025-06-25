@@ -6,4 +6,4 @@
 
 > Little luma drawings in chat
 
-## This project and all of it's subprojects are licensed under CC BY-NC-ND 4.0 
+## This project is licensed under CC BY-NC-ND 4.0 
