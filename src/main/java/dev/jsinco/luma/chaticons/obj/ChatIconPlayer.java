@@ -19,6 +19,7 @@ public class ChatIconPlayer {
     private static final NamespacedKey ACTIVE_ICON_KEY = new NamespacedKey(LumaChatIcons.getInstance(), "active-icon");
 
     private final UUID uuid;
+    @Nullable
     private ChatIcon icon;
 
     public ChatIconPlayer(UUID uuid) {
