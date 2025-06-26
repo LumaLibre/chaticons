@@ -21,7 +21,7 @@ public final class Util {
     private static final Map<ItemStack, int[]> DEFAULT_GUI_ITEMS = new HashMap<>();
 
     static {
-        DEFAULT_GUI_ITEMS.put(ItemStack.of(Material.GRAY_STAINED_GLASS_PANE), new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 36, 37, 38, 39, 40, 41, 42, 43, 44});
+        DEFAULT_GUI_ITEMS.put(ItemStack.of(Material.GRAY_STAINED_GLASS_PANE), new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 27, 28, 29, 30, 31, 32, 33, 34, 35});
     }
 
     public static boolean hasDisabledIcons(Player player) {
@@ -37,7 +37,7 @@ public final class Util {
     }
 
     public static Inventory defaultGui(InventoryHolder owner) {
-        Inventory inventory = Bukkit.createInventory(owner, 45, Text.mm("Chat Icons"));
+        Inventory inventory = Bukkit.createInventory(owner, 36, Text.mm("Chat Icons"));
         for (Map.Entry<ItemStack, int[]> entry : DEFAULT_GUI_ITEMS.entrySet()) {
             ItemStack item = entry.getKey();
             for (int slot : entry.getValue()) {

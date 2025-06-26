@@ -31,7 +31,7 @@ import java.util.List;
 public class ChatIconsGui extends AbstractGui {
 
     private final IndexedGuiItem PREVIOUS_PAGE = IndexedGuiItem.of(
-            39,
+            30,
             Util.createItem(Material.PAPER, meta -> {
                 meta.displayName(Text.mmNoItalic("<green><b>Previous Page"));
                 meta.lore(Text.mmlNoItalic(
@@ -47,7 +47,7 @@ public class ChatIconsGui extends AbstractGui {
     );
 
     private final IndexedGuiItem CLEAR_ICON = IndexedGuiItem.of(
-            40,
+            31,
             Util.createItem(Material.BARRIER, meta -> {
                 meta.displayName(Text.mmNoItalic("<red><b>Clear Icon"));
                 meta.lore(Text.mmlNoItalic(
@@ -70,7 +70,7 @@ public class ChatIconsGui extends AbstractGui {
     );
 
     private final IndexedGuiItem NEXT_PAGE = IndexedGuiItem.of(
-            41,
+            32,
             Util.createItem(Material.PAPER, meta -> {
                 meta.displayName(Text.mmNoItalic("<green><b>Next Page"));
                 meta.lore(Text.mmlNoItalic(
@@ -120,10 +120,10 @@ public class ChatIconsGui extends AbstractGui {
         List<ItemStack> items = getItemStacks(chatIcons);
 
         this.paginatedGui = PaginatedGui.builder()
-                .name("Chat Icons")
+                .name("<b><#b986f9>Icons")
                 .base(this.inventory)
                 .items(items)
-                .startEndSlots(9, 35)
+                .startEndSlots(9, 26)
                 .build();
     }
 
