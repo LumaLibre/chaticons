@@ -1,6 +1,6 @@
 package dev.jsinco.luma.chaticons.utility;
 
-import dev.jsinco.luma.chaticons.LumaChatIcons;
+import dev.jsinco.luma.chaticons.ChatIcons;
 import dev.jsinco.luma.lumacore.utility.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,7 +17,8 @@ import java.util.Map;
 
 public final class Util {
 
-    private static final NamespacedKey DISABLED_ICON_KEY = new NamespacedKey(LumaChatIcons.getInstance(), "luma-chat-icons");
+    public static final NamespacedKey ICON_VOUCHER_KEY = new NamespacedKey(ChatIcons.getInstance(), "icon-voucher");
+    private static final NamespacedKey DISABLED_ICON_KEY = new NamespacedKey(ChatIcons.getInstance(), "luma-chat-icons");
     private static final Map<ItemStack, int[]> DEFAULT_GUI_ITEMS = new HashMap<>();
 
     static {
@@ -56,5 +57,27 @@ public final class Util {
         editMeta.edit(itemMeta);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
+    }
+
+    public static boolean isIconVoucher(ItemStack itemStack) {
+        return itemStack != null && itemStack.getType() != Material.AIR && itemStack.getPersistentDataContainer().has(ICON_VOUCHER_KEY);
+    }
+
+    public static String getIconVoucherPermission(ItemStack itemStack) {
+        return  itemStack.getPersistentDataContainer().get(ICON_VOUCHER_KEY, PersistentDataType.STRING);
+    }
+
+    public static String formatSnakeCase(String s) {
+        String name = s.toLowerCase().replace("_", " ");
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+        for (int i = 0; i < name.length(); i++) {
+            if (name.charAt(i) == ' ' && i + 1 < name.length()) {
+                name = name.substring(0, i + 1)
+                        + Character.toUpperCase(name.charAt(i + 1))
+                        + name.substring(i + 2);
+            }
+        }
+        return name;
     }
 }

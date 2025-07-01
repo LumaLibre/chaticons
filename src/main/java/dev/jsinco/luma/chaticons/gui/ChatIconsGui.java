@@ -1,6 +1,6 @@
 package dev.jsinco.luma.chaticons.gui;
 
-import dev.jsinco.luma.chaticons.LumaChatIcons;
+import dev.jsinco.luma.chaticons.ChatIcons;
 import dev.jsinco.luma.chaticons.config.OkaeriChatIcon;
 import dev.jsinco.luma.chaticons.obj.ChatIcon;
 import dev.jsinco.luma.chaticons.obj.ChatIconPlayer;
@@ -33,7 +33,7 @@ public class ChatIconsGui extends AbstractGui {
     private final IndexedGuiItem PREVIOUS_PAGE = IndexedGuiItem.of(
             30,
             Util.createItem(Material.PAPER, meta -> {
-                meta.displayName(Text.mmNoItalic("<green><b>Previous Page"));
+                meta.displayName(Text.mmNoItalic("<#9de24f><b>Previous Page"));
                 meta.lore(Text.mmlNoItalic(
                         "",
                         "<white>| <gray>Click to go to the",
@@ -63,7 +63,7 @@ public class ChatIconsGui extends AbstractGui {
                 chatIconPlayer.setIcon(null);
                 Text.msg(player, Component.text("You cleared your chat icon."));
 
-                Bukkit.getScheduler().runTaskLater(LumaChatIcons.getInstance(), () -> {
+                Bukkit.getScheduler().runTaskLater(ChatIcons.getInstance(), () -> {
                     player.closeInventory();
                 }, 1L);
             }
@@ -72,7 +72,7 @@ public class ChatIconsGui extends AbstractGui {
     private final IndexedGuiItem NEXT_PAGE = IndexedGuiItem.of(
             32,
             Util.createItem(Material.PAPER, meta -> {
-                meta.displayName(Text.mmNoItalic("<green><b>Next Page"));
+                meta.displayName(Text.mmNoItalic("<#9de24f><b>Next Page"));
                 meta.lore(Text.mmlNoItalic(
                         "",
                         "<white>| <gray>Click to go to the",
@@ -98,9 +98,9 @@ public class ChatIconsGui extends AbstractGui {
             return;
         }
         chatIconPlayer.setIcon(chatIcon);
-        Text.msg(player, Component.text("You changed your chat icon to ").append(chatIcon.getComponent()));
+        Text.msg(player, Component.text("You changed your chat icon to ").append(chatIcon.getComponent()).append(Text.mm(".")));
 
-        Bukkit.getScheduler().runTaskLater(LumaChatIcons.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskLater(ChatIcons.getInstance(), () -> {
             player.closeInventory();
         }, 1L);
     };
@@ -113,7 +113,7 @@ public class ChatIconsGui extends AbstractGui {
         this.inventory = Util.defaultGui(this);
         this.autoRegister();
 
-        List<ChatIcon> chatIcons = LumaChatIcons.getChatIconsConfig().getChatIcons().values().stream()
+        List<ChatIcon> chatIcons = ChatIcons.getChatIconsConfig().getChatIcons().stream()
                 .filter(icon -> icon.getPermission() == null || player.hasPermission(icon.getPermission()))
                 .map(OkaeriChatIcon::toChatIcon)
                 .toList();
@@ -153,13 +153,24 @@ public class ChatIconsGui extends AbstractGui {
         for (ChatIcon chatIcon : chatIcons) {
             ItemStack itemStack = new ItemStack(chatIcon.getMaterial());
             itemStack.editMeta(meta -> {
-                meta.displayName(chatIcon.getComponent().color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false).append(Text.mmNoItalic(" <dark_gray>Icon")));
-                meta.lore(Text.mmlNoItalic(
-                        "",
-                        "<white>| <green>Left-click<gray> to change",
-                        "<white>| <gray>this to your active",
-                        "<white>| <gray>chat icon."
+                meta.displayName(Text.mmNoItalic("<#9de24f><b>\"" + chatIcon.getFormattedName() + "\" Icon"));
+
+                List<Component> lore = new ArrayList<>(List.of(
+                        Text.mmNoItalic(""),
+                        Text.mmNoItalic("<white>| <gray>Icon:<white> ").append(chatIcon.getComponent().decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)),
+                        Text.mmNoItalic("<white>|")
                 ));
+                lore.addAll(
+                        chatIcon.getDescription().stream()
+                                .map(desc -> Text.mmNoItalic("<white>| <gray>" + desc))
+                                .toList()
+                );
+                lore.addAll(Text.mmlNoItalic(
+                        "<white>|",
+                        "<white>| <#9de24f>Click<gray> to change this",
+                        "<white>| <gray>to your active chat icon."
+                ));
+                meta.lore(lore);
                 meta.addEnchant(Enchantment.UNBREAKING, 1, true);
                 meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             });

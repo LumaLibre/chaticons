@@ -2,17 +2,21 @@ package dev.jsinco.luma.chaticons.config;
 
 import dev.jsinco.luma.chaticons.integration.ItemsAdderEmoji;
 import dev.jsinco.luma.chaticons.obj.ChatIcon;
+import dev.jsinco.luma.chaticons.utility.Util;
 import eu.okaeri.configs.OkaeriConfig;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 @Getter
 public class OkaeriChatIcon extends OkaeriConfig {
 
-    private String namespace;
     private String name;
+    private String namespace;
+    private List<String> description;
 
     public boolean isResourcePackDependent() {
         return namespace != null && !namespace.isEmpty();
@@ -35,7 +39,11 @@ public class OkaeriChatIcon extends OkaeriConfig {
     }
 
     public String getPermission() {
-        return "lumachaticons.icon." + name;
+        return "chaticons.icon." + name;
+    }
+
+    public Material getMaterial() {
+        return Material.FLOWER_BANNER_PATTERN;
     }
 
     public ChatIcon toChatIcon() {
@@ -43,8 +51,13 @@ public class OkaeriChatIcon extends OkaeriConfig {
                 .name(name)
                 .component(getComponent())
                 .permission(getPermission())
-                .material(Material.AMETHYST_SHARD)
+                .material(getMaterial())
+                .description(description)
                 .build();
+    }
+
+    public String formattedName() {
+        return Util.formatSnakeCase(name);
     }
 
     public static OkaeriChatIcon defaultOkaeriChatIcon() {

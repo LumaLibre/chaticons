@@ -1,6 +1,6 @@
 package dev.jsinco.luma.chaticons.commands;
 
-import dev.jsinco.luma.chaticons.LumaChatIcons;
+import dev.jsinco.luma.chaticons.ChatIcons;
 import dev.jsinco.luma.chaticons.gui.ChatIconsGui;
 import dev.jsinco.luma.lumacore.manager.commands.AbstractCommandManager;
 import dev.jsinco.luma.lumacore.manager.commands.CommandInfo;
@@ -16,12 +16,12 @@ import org.jetbrains.annotations.NotNull;
         aliases = {"icons"},
         description = "Main command for LumaChatIcons",
         usage = "/<command> <subcommand?>",
-        permission = "lumachaticons.command.base"
+        permission = "chaticons.command.base"
 )
-public class CommandManager extends AbstractCommandManager<@NotNull LumaChatIcons, SubCommand> {
+public class CommandManager extends AbstractCommandManager<@NotNull ChatIcons, SubCommand> {
 
     public CommandManager() {
-        super(LumaChatIcons.getInstance());
+        super(ChatIcons.getInstance());
     }
 
     @Override

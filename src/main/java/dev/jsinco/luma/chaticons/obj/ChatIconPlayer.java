@@ -1,6 +1,6 @@
 package dev.jsinco.luma.chaticons.obj;
 
-import dev.jsinco.luma.chaticons.LumaChatIcons;
+import dev.jsinco.luma.chaticons.ChatIcons;
 import dev.jsinco.luma.chaticons.config.OkaeriChatIcon;
 import dev.jsinco.luma.lumacore.utility.Logging;
 import lombok.Getter;
@@ -10,13 +10,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @Getter
 public class ChatIconPlayer {
 
-    private static final NamespacedKey ACTIVE_ICON_KEY = new NamespacedKey(LumaChatIcons.getInstance(), "active-icon");
+    private static final NamespacedKey ACTIVE_ICON_KEY = new NamespacedKey(ChatIcons.getInstance(), "active-icon");
 
     private final UUID uuid;
     @Nullable
@@ -59,8 +60,8 @@ public class ChatIconPlayer {
             this.icon = null;
             return;
         }
-        Map<String, OkaeriChatIcon> okaeriChatIconMap = LumaChatIcons.getChatIconsConfig().getChatIcons();
-        OkaeriChatIcon okaeriChatIcon = okaeriChatIconMap.values().stream().filter(it -> activeIconName.equals(it.getName())).findFirst().orElse(null);
+        List<OkaeriChatIcon> okaeriChatIconMap = ChatIcons.getChatIconsConfig().getChatIcons();
+        OkaeriChatIcon okaeriChatIcon = okaeriChatIconMap.stream().filter(it -> activeIconName.equals(it.getName())).findFirst().orElse(null);
         if (okaeriChatIcon != null) {
             this.icon = okaeriChatIcon.toChatIcon();
         } else {
