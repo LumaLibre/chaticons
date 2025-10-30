@@ -123,7 +123,7 @@ public class ChatIconsGui extends AbstractGui {
                 .name("<b><#b986f9>Icons")
                 .base(this.inventory)
                 .items(items)
-                .startEndSlots(9, 26)
+                .startEndSlots(9, 27)
                 .build();
     }
 
