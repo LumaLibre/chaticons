@@ -5,6 +5,7 @@ author: Jsinco
 api-version: '1.21'
 depend:
   - ChatHeads
-  - ItemsAdder
-softdepend:
   - LuckPerms
+softdepend:
+  - ItemsAdder
+  - Nexo

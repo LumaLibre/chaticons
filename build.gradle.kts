@@ -16,6 +16,7 @@ repositories {
     maven("https://repo.jsinco.dev/releases")
     maven("https://repo.opencollab.dev/main/")
     maven("https://maven.devs.beer/")
+    maven("https://repo.nexomc.com/releases")
 }
 
 dependencies {
@@ -24,6 +25,7 @@ dependencies {
     compileOnly("org.geysermc.floodgate:api:2.2.2-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
     compileOnly("dev.lone:api-itemsadder:4.0.10")
+    compileOnly("com.nexomc:nexo:1.16.1")
     compileOnly("net.luckperms:api:5.4")
     implementation("eu.okaeri:okaeri-configs-yaml-bukkit:5.0.5")
     implementation("eu.okaeri:okaeri-configs-serdes-bukkit:5.0.5")

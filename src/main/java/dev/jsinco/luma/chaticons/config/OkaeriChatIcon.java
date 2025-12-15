@@ -1,6 +1,7 @@
 package dev.jsinco.luma.chaticons.config;
 
-import dev.jsinco.luma.chaticons.integration.ItemsAdderEmoji;
+import dev.jsinco.luma.chaticons.ChatIcons;
+import dev.jsinco.luma.chaticons.integration.IconComponentProvider;
 import dev.jsinco.luma.chaticons.obj.ChatIcon;
 import dev.jsinco.luma.chaticons.utility.Util;
 import eu.okaeri.configs.OkaeriConfig;
@@ -15,23 +16,21 @@ import java.util.List;
 public class OkaeriChatIcon extends OkaeriConfig {
 
     private String name;
-    private String namespace;
+    private @Nullable String namespace;
     private List<String> description;
 
-    public boolean isResourcePackDependent() {
-        return namespace != null && !namespace.isEmpty();
-    }
-
     @Nullable
-    public Component getItemsAdderEmoji() {
-        if (namespace == null || namespace.isEmpty() || name == null || name.isEmpty()) {
+    public Component getProvidedIcon() {
+        if (name == null || name.isEmpty()) {
             return null;
         }
-        return ItemsAdderEmoji.getEmojiComponent(namespace, name);
+
+        IconComponentProvider provider = ChatIcons.getIconComponentProvider();
+        return provider.getComponent(namespace, name);
     }
 
     public Component getComponent() {
-        Component component = getItemsAdderEmoji();
+        Component component = getProvidedIcon();
         if (component == null) {
             component = Component.text(name);
         }
