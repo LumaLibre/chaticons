@@ -1,12 +1,17 @@
 package dev.jsinco.luma.chaticons.config;
 
+import dev.jsinco.luma.chaticons.integration.IconComponentProviders;
 import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
 public class Config extends OkaeriConfig {
+
+    @Comment("ITEMSADDER, NEXO")
+    private IconComponentProviders iconComponentProvider = IconComponentProviders.NEXO;
 
     private List<OkaeriChatIcon> chatIcons = List.of(
             OkaeriChatIcon.defaultOkaeriChatIcon()

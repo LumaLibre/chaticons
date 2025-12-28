@@ -23,6 +23,7 @@ public class ReloadCommand implements SubCommand {
     @Override
     public boolean execute(@NotNull ChatIcons chatIcons, CommandSender commandSender, String s, String[] strings) {
         ChatIcons.getChatIconsConfig().load();
+        ChatIcons.setProviderInstance();
         Text.msg(commandSender, "Config reloaded.");
         return true;
     }
