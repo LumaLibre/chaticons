@@ -1,11 +1,12 @@
 name: ChatIcons
-main: dev.jsinco.luma.chaticons.ChatIcons
+main: dev.lumas.chaticons.ChatIcons
 version: '${version}'
 author: Jsinco
 api-version: '1.21'
 depend:
   - ChatHeads
   - LuckPerms
+  - LumaCore
 softdepend:
   - ItemsAdder
   - Nexo

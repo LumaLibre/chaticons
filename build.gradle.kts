@@ -6,7 +6,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.5"
 }
 
-group = "dev.jsinco.luma.chaticons"
+group = "dev.lumas.chaticons"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     compileOnly("dev.jsinco.chatheads:ChatHeads:1.7")
-    compileOnly("dev.jsinco.luma.lumacore:LumaCore:776c4e4")
+    compileOnly("dev.lumas.lumacore:LumaCore:d56563b")
     compileOnly("org.geysermc.floodgate:api:2.2.2-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
     compileOnly("dev.lone:api-itemsadder:4.0.10")
@@ -37,7 +37,7 @@ java {
 
 tasks {
     shadowJar {
-        relocate("eu.okaeri", "dev.jsinco.luma.chaticons.okaeri")
+        relocate("eu.okaeri", "dev.lumas.chaticons.okaeri")
     }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
