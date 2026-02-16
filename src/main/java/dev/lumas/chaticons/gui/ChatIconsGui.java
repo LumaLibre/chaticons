@@ -63,9 +63,9 @@ public class ChatIconsGui extends AbstractGui {
                 chatIconPlayer.setIcon(null);
                 Text.msg(player, Component.text("You cleared your chat icon."));
 
-                Bukkit.getScheduler().runTaskLater(ChatIcons.getInstance(), () -> {
+                player.getScheduler().runDelayed(ChatIcons.getInstance(), task -> {
                     player.closeInventory();
-                }, 1L);
+                }, null, 1L);
             }
     );
 
@@ -100,9 +100,9 @@ public class ChatIconsGui extends AbstractGui {
         chatIconPlayer.setIcon(chatIcon);
         Text.msg(player, Component.text("You changed your chat icon to ").append(chatIcon.getComponent()).append(Text.mm(".")));
 
-        Bukkit.getScheduler().runTaskLater(ChatIcons.getInstance(), () -> {
+        player.getScheduler().runDelayed(ChatIcons.getInstance(), task -> {
             player.closeInventory();
-        }, 1L);
+        }, null, 1L);
     };
 
 
