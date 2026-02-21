@@ -4,6 +4,7 @@ import dev.lumas.chaticons.integration.IconComponentProviders;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import lombok.Getter;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class Config extends OkaeriConfig {
 
     @Comment("ITEMSADDER, NEXO")
     private IconComponentProviders iconComponentProvider = IconComponentProviders.NEXO;
+
+    @Comment("The namespace to use for the icons")
+    private String namespace = "luma_icons";
 
     private List<OkaeriChatIcon> chatIcons = List.of(
             OkaeriChatIcon.defaultOkaeriChatIcon()

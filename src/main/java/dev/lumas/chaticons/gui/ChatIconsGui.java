@@ -114,7 +114,14 @@ public class ChatIconsGui extends AbstractGui {
         this.autoRegister();
 
         List<ChatIcon> chatIcons = ChatIcons.getChatIconsConfig().getChatIcons().stream()
-                .filter(icon -> icon.getPermission() == null || player.hasPermission(icon.getPermission()))
+                .filter(icon -> {
+                    if (icon.getPermission() == null) return true;
+
+                    for (String perm : icon.getPermissions()) {
+                        if (player.hasPermission(perm)) return true;
+                    }
+                    return false;
+                })
                 .map(OkaeriChatIcon::toChatIcon)
                 .toList();
         List<ItemStack> items = getItemStacks(chatIcons);
