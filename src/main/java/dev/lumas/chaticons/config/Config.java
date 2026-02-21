@@ -14,7 +14,7 @@ public class Config extends OkaeriConfig {
     @Comment("ITEMSADDER, NEXO")
     private IconComponentProviders iconComponentProvider = IconComponentProviders.NEXO;
 
-    @Comment("The namespace to use for the icons")
+    @Comment("The namespace to use for the icons (ItemsAdder only)")
     private String namespace = "luma_icons";
 
     private List<OkaeriChatIcon> chatIcons = List.of(

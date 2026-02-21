@@ -11,7 +11,6 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,7 +18,6 @@ public class OkaeriChatIcon extends OkaeriConfig {
 
     private String name;
     private List<String> description;
-    private List<String> altNames;
 
     @Nullable
     public Component getProvidedIcon() {
@@ -45,13 +43,6 @@ public class OkaeriChatIcon extends OkaeriConfig {
 
     public String getPermission() {
         return "chaticons.icon." + name;
-    }
-
-    public List<String> getPermissions() {
-        if (altNames == null || altNames.isEmpty()) return List.of(getPermission());
-        List<String> perms = new ArrayList<>(altNames.stream().map(name -> "chaticons.icon." + name).toList());
-        perms.add(getPermission());
-        return perms;
     }
 
     public Material getMaterial() {
