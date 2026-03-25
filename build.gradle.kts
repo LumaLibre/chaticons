@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     compileOnly("dev.jsinco.chatheads:ChatHeads:1.7")
-    compileOnly("dev.lumas.lumacore:LumaCore:d56563b")
+    compileOnly("dev.lumas.core:LumaCore:5df19a8")
     compileOnly("org.geysermc.floodgate:api:2.2.2-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
     compileOnly("dev.lone:api-itemsadder:4.0.10")

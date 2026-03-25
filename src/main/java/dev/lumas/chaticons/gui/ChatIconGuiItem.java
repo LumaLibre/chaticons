@@ -2,8 +2,8 @@ package dev.lumas.chaticons.gui;
 
 import dev.lumas.chaticons.ChatIcons;
 import dev.lumas.chaticons.obj.ChatIcon;
-import dev.lumas.lumacore.manager.guis.GuiItemAction;
-import dev.lumas.lumacore.manager.guis.items.KeyedGuiItem;
+import dev.lumas.core.model.gui.GuiItemAction;
+import dev.lumas.core.model.gui.items.KeyedGuiItem;
 import lombok.Getter;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
