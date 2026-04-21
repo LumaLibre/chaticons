@@ -50,7 +50,6 @@ public class ChatIcon {
         List<Component> components = new ArrayList<>();
 
         components.add(Text.mm("<#9de24f><b>\"" + getFormattedName() + "\""));
-        components.add(Component.empty());
         components.addAll(getDescription().stream()
                 .map(desc -> Text.mm("<white>| <gray>" + desc))
                 .toList());
