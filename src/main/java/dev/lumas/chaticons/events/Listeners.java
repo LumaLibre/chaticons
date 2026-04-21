@@ -56,7 +56,7 @@ public class Listeners implements Listener {
             return;
         }
 
-        Component icon = SPACE.append(chatIcon.getComponent());
+        Component icon = SPACE.append(chatIcon.getHoverableComponent());
         event.setAvatar(avatar.append(icon));
     }
 
