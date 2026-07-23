@@ -11,7 +11,7 @@ public final class NexoGlyphProvider implements IconComponentProvider {
     @Override
     public @Nullable Component getComponent(@Nullable String ignored, @NotNull String identifier) {
         // ignore namespace for Nexo glyphs
-        Glyph glyph = NexoPlugin.instance().getFontManager$core().glyphFromID(identifier);
+        Glyph glyph = NexoPlugin.instance().fontManager().glyphFromID(identifier);
         if (glyph != null) {
             return glyph.getComponent();
         }
