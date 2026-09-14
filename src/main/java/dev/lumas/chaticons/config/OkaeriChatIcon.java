@@ -16,6 +16,20 @@ import java.util.List;
 @Getter
 public class OkaeriChatIcon extends OkaeriConfig {
 
+
+    private static final transient List<Material> BANNER_PATTERNS = List.of(
+        Material.FIELD_MASONED_BANNER_PATTERN,
+        Material.BORDURE_INDENTED_BANNER_PATTERN,
+        Material.FLOWER_BANNER_PATTERN,
+        Material.CREEPER_BANNER_PATTERN,
+        Material.SKULL_BANNER_PATTERN,
+        Material.MOJANG_BANNER_PATTERN,
+        Material.GLOBE_BANNER_PATTERN,
+        Material.PIGLIN_BANNER_PATTERN,
+        Material.FLOW_BANNER_PATTERN,
+        Material.GUSTER_BANNER_PATTERN
+    );
+
     private String name;
     private List<String> description;
 
@@ -46,7 +60,8 @@ public class OkaeriChatIcon extends OkaeriConfig {
     }
 
     public Material getMaterial() {
-        return Material.FLOWER_BANNER_PATTERN;
+        // random pattern
+        return BANNER_PATTERNS.get(Math.abs(name.hashCode()) % BANNER_PATTERNS.size());
     }
 
     public ChatIcon toChatIcon() {
