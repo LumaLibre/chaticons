@@ -17,6 +17,12 @@ public class Config extends OkaeriConfig {
     @Comment("The namespace to use for the icons (ItemsAdder only)")
     private String namespace = "luma_icons";
 
+    @Comment({
+            "Output format of %rel_chaticons_icon%. MINIMESSAGE, LEGACY, PLAIN",
+            "MINIMESSAGE keeps the glyph font. LEGACY and PLAIN require the glyphs to be in minecraft:default"
+    })
+    private RelationalIconFormat relationalIconFormat = RelationalIconFormat.MINIMESSAGE;
+
     private List<OkaeriChatIcon> chatIcons = List.of(
             OkaeriChatIcon.defaultOkaeriChatIcon()
     );

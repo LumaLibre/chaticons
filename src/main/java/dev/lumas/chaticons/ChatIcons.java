@@ -2,6 +2,8 @@ package dev.lumas.chaticons;
 
 import dev.lumas.chaticons.config.ConfigManager;
 import dev.lumas.chaticons.config.Config;
+import dev.lumas.chaticons.gui.ChatIconsGui;
+import dev.lumas.chaticons.integration.ChatIconsExpansion;
 import dev.lumas.chaticons.integration.IconComponentProvider;
 import dev.lumas.chaticons.obj.ChatIconPlayerManager;
 import dev.lumas.lumacore.manager.modules.ModuleManager;
@@ -18,6 +20,7 @@ public final class ChatIcons extends JavaPlugin {
     @Getter private static LuckPerms luckPerms;
     @Getter private static IconComponentProvider iconComponentProvider;
     private static ModuleManager moduleManager;
+    private static ChatIconsExpansion expansion;
 
     @Override
     public void onLoad() {
@@ -34,6 +37,10 @@ public final class ChatIcons extends JavaPlugin {
         if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
             luckPerms = Bukkit.getServicesManager().load(LuckPerms.class);
         }
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            expansion = new ChatIconsExpansion();
+            expansion.register();
+        }
         for (Player player : Bukkit.getOnlinePlayers()) {
             ChatIconPlayerManager.load(player);
         }
@@ -42,6 +49,19 @@ public final class ChatIcons extends JavaPlugin {
     @Override
     public void onDisable() {
         moduleManager.unregisterModules();
+
+        // not managed by LumaCore, would otherwise keep this classloader alive across a plugman reload
+        if (expansion != null) {
+            expansion.unregister();
+            expansion = null;
+        }
+
+        // open GUIs reference this plugin instance, close them so nothing clicks into a disabled plugin
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.getOpenInventory().getTopInventory().getHolder(false) instanceof ChatIconsGui) {
+                player.closeInventory();
+            }
+        }
     }
 
     public static void setProviderInstance() {
