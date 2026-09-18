@@ -31,6 +31,7 @@ public class OkaeriChatIcon extends OkaeriConfig {
     );
 
     private String name;
+    private String overrideName;
     private List<String> description;
 
     @Nullable
@@ -67,6 +68,7 @@ public class OkaeriChatIcon extends OkaeriConfig {
     public ChatIcon toChatIcon() {
         return ChatIcon.builder()
                 .name(name)
+                .overrideName(overrideName)
                 .component(getComponent())
                 .permission(getPermission())
                 .material(getMaterial())
@@ -75,13 +77,22 @@ public class OkaeriChatIcon extends OkaeriConfig {
     }
 
     public String formattedName() {
-        return Util.formatSnakeCase(name);
+        return hasOverrideName() ? overrideName : Util.formatSnakeCase(name);
+    }
+
+    public boolean hasOverrideName() {
+        return overrideName != null && !overrideName.isBlank();
+    }
+
+    static OkaeriChatIcon create(String name, String overrideName, List<String> description) {
+        OkaeriChatIcon okaeriChatIcon = new OkaeriChatIcon();
+        okaeriChatIcon.name = name;
+        okaeriChatIcon.overrideName = overrideName;
+        okaeriChatIcon.description = description;
+        return okaeriChatIcon;
     }
 
     public static OkaeriChatIcon defaultOkaeriChatIcon() {
-        OkaeriChatIcon okaeriChatIcon = new OkaeriChatIcon();
-        okaeriChatIcon.name = "icon";
-        okaeriChatIcon.description = List.of("Default icon");
-        return okaeriChatIcon;
+        return create("icon", null, List.of("Default icon"));
     }
 }

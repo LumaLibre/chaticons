@@ -20,6 +20,7 @@ import java.util.List;
 public class ChatIcon {
 
     private String name;
+    private String overrideName;
     private Component component;
     private String permission;
     private Material material;
@@ -29,8 +30,9 @@ public class ChatIcon {
 
 
     @Builder
-    public ChatIcon(String name, Component component, String permission, Material material, List<String> description) {
+    public ChatIcon(String name, String overrideName, Component component, String permission, Material material, List<String> description) {
         this.name = name;
+        this.overrideName = overrideName;
         this.component = component;
         this.permission = permission;
         this.material = material;
@@ -39,7 +41,9 @@ public class ChatIcon {
     }
 
     public String getFormattedName() {
-        return Util.formatSnakeCase(name);
+        return overrideName != null && !overrideName.isBlank()
+                ? overrideName
+                : Util.formatSnakeCase(name);
     }
 
     public List<String> getDescription() {

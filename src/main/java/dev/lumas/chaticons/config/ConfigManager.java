@@ -16,7 +16,11 @@ public class ConfigManager {
         Path configPath = ChatIcons.getInstance().getDataPath().resolve("config.yml");
 
         this.config = eu.okaeri.configs.ConfigManager.create(Config.class, (it) -> {
-            it.withConfigurer(new YamlBukkitConfigurer(), new StandardSerdes());
+            it.withConfigurer(
+                    new YamlBukkitConfigurer(),
+                    new StandardSerdes(),
+                    registry -> registry.register(new OkaeriChatIconSerializer())
+            );
             it.withRemoveOrphans(false);
             it.withBindFile(configPath);
             it.saveDefaults();

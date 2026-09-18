@@ -1,6 +1,7 @@
 package dev.lumas.chaticons.events;
 
 import dev.jsinco.chatheads.api.ChatHeadsInjectEvent;
+import dev.jsinco.chatheads.obj.CachedPlayer;
 import dev.lumas.chaticons.ChatIcons;
 import dev.lumas.chaticons.config.Config;
 import dev.lumas.chaticons.config.DisabledChatHeadsCharacter;
@@ -43,16 +44,23 @@ public class Listeners implements Listener {
         ChatIconPlayer chatIconPlayer = ChatIconPlayerManager.getChatIconPlayer(player.getUniqueId());
         ChatIcon chatIcon = chatIconPlayer.getIcon();
 
+        boolean hideChatHead = event.isCancelled()
+                || CachedPlayer.checkBedrockPlayer(event.getReceiver().getUniqueId());
+        if (hideChatHead) {
+            Component replacement = chatIcon == null ? this.getNoIconPrefix(player) : chatIcon.getComponent();
+            if (replacement != null) {
+                event.setAvatar(replacement);
+                event.setCancelled(false);
+            } else {
+                event.setCancelled(true);
+            }
+            return;
+        }
 
-        if (chatIcon == null || event.isCancelled()) {
+        if (chatIcon == null) {
             Component noIconPrefix = this.getNoIconPrefix(player);
             if (noIconPrefix != null) {
-                if (event.isCancelled()) {
-                    event.setAvatar(noIconPrefix);
-                    event.setCancelled(false);
-                } else {
-                    event.setAvatar(avatar.append(SPACE).append(noIconPrefix));
-                }
+                event.setAvatar(avatar.append(SPACE).append(noIconPrefix));
             }
             return;
         }
