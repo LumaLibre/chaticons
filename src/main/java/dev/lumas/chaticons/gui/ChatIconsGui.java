@@ -97,7 +97,7 @@ public class ChatIconsGui extends AbstractGui {
             return;
         }
         chatIconPlayer.setIcon(chatIcon);
-        Text.msg(player, Component.text("You changed your chat icon to ").append(chatIcon.getComponent()).append(Text.mm(".")));
+        Text.msg(player, Component.text("You changed your chat icon to ").append(chatIcon.getDisplayComponent(player)).append(Text.mm(".")));
 
         player.getScheduler().runDelayed(ChatIcons.getInstance(), task -> {
             player.closeInventory();

@@ -1,10 +1,15 @@
 package dev.lumas.chaticons.integration;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface IconComponentProvider {
 
     @Nullable Component getComponent(String namespace, @NotNull String identifier);
+
+    default Component renderForViewer(Player viewer, Component component) {
+        return component;
+    }
 }

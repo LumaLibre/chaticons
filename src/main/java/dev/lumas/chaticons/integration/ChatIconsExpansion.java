@@ -3,6 +3,7 @@ package dev.lumas.chaticons.integration;
 import dev.lumas.chaticons.ChatIcons;
 import dev.lumas.chaticons.obj.ChatIcon;
 import dev.lumas.chaticons.obj.ChatIconPlayerManager;
+import dev.lumas.chaticons.utility.ChatIconVisibility;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Relational;
 import org.bukkit.entity.Player;
@@ -39,7 +40,7 @@ public class ChatIconsExpansion extends PlaceholderExpansion implements Relation
 
     @Override
     public String onPlaceholderRequest(Player viewer, Player target, String params) {
-        if (viewer == null || target == null || !viewer.hasResourcePack()) {
+        if (viewer == null || target == null || !ChatIconVisibility.canSeeIcons(viewer)) {
             return "";
         }
 
@@ -48,6 +49,6 @@ public class ChatIconsExpansion extends PlaceholderExpansion implements Relation
             return "";
         }
 
-        return ChatIcons.getChatIconsConfig().getRelationalIconFormat().serialize(icon.getComponent());
+        return ChatIcons.getChatIconsConfig().getRelationalIconFormat().serialize(icon.getComponent(viewer));
     }
 }

@@ -20,14 +20,14 @@ public class ChatIconPlayer {
 
     private final UUID uuid;
     @Nullable
-    private ChatIcon icon;
+    private volatile ChatIcon icon;
 
     public ChatIconPlayer(UUID uuid) {
         this.uuid = uuid;
         this.loadIcon();
     }
 
-    public void setIcon(ChatIcon icon) {
+    public void setIcon(@Nullable ChatIcon icon) {
         this.icon = icon;
         this.saveIcon();
     }

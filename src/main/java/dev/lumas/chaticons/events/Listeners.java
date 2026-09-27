@@ -8,6 +8,7 @@ import dev.lumas.chaticons.config.DisabledChatHeadsCharacter;
 import dev.lumas.chaticons.obj.ChatIcon;
 import dev.lumas.chaticons.obj.ChatIconPlayer;
 import dev.lumas.chaticons.obj.ChatIconPlayerManager;
+import dev.lumas.chaticons.utility.ChatIconVisibility;
 import dev.lumas.chaticons.utility.Util;
 import dev.lumas.lumacore.manager.modules.AutoRegister;
 import dev.lumas.lumacore.manager.modules.RegisterType;
@@ -40,6 +41,13 @@ public class Listeners implements Listener {
         Player player = event.getPlayer();
         if (player == null) return;
 
+        // A cancelled ChatHeads event can mean either no Java pack or a hidden head.
+        // Only the latter may be replaced by an icon; Bedrock uses its own resource pack.
+        if (!ChatIconVisibility.canSeeIcons(event.getReceiver())) {
+            event.setCancelled(true);
+            return;
+        }
+
         Component avatar = event.getAvatar();
         ChatIconPlayer chatIconPlayer = ChatIconPlayerManager.getChatIconPlayer(player.getUniqueId());
         ChatIcon chatIcon = chatIconPlayer.getIcon();
@@ -47,7 +55,7 @@ public class Listeners implements Listener {
         boolean hideChatHead = event.isCancelled()
                 || CachedPlayer.checkBedrockPlayer(event.getReceiver().getUniqueId());
         if (hideChatHead) {
-            Component replacement = chatIcon == null ? this.getNoIconPrefix(player) : chatIcon.getComponent();
+            Component replacement = chatIcon == null ? this.getNoIconPrefix(player) : chatIcon.getComponent(event.getReceiver());
             if (replacement != null) {
                 event.setAvatar(replacement);
                 event.setCancelled(false);

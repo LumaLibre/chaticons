@@ -40,7 +40,7 @@ public class ForceSetIconCommand implements SubCommand {
                 .findFirst()
                 .orElse(null);
 
-        if (okaeriChatIcon == null) {
+        if (okaeriChatIcon == null && !strings[1].equalsIgnoreCase("none")) {
             Text.msg(commandSender, "<red>Chat icon not found!");
             return true;
         }
@@ -50,7 +50,7 @@ public class ForceSetIconCommand implements SubCommand {
 
         chatIconPlayer.setIcon(chatIcon);
 
-        Text.msg(target, Component.text("Your chat icon has been changed to ").append(chatIcon.getComponent()).append(Text.mm(".")));
+        Text.msg(target, Component.text("Your chat icon has been changed to ").append(chatIcon.getDisplayComponent(target)).append(Text.mm(".")));
         Text.msg(commandSender, "Set " + target.getName() + "'s chat icon to " + chatIcon.getName() + ".");
         return true;
     }
@@ -60,9 +60,11 @@ public class ForceSetIconCommand implements SubCommand {
         if (strings.length == 1) {
             return null;
         } else if (strings.length == 2) {
-            return ChatIcons.getChatIconsConfig().getChatIcons().stream()
-                    .map(OkaeriChatIcon::getName)
-                    .toList();
+            List<String> names = new java.util.ArrayList<>(ChatIcons.getChatIconsConfig().getChatIcons().stream()
+                .map(OkaeriChatIcon::getName)
+                .toList());
+            names.add("none");
+            return names;
         }
         return List.of();
     }
