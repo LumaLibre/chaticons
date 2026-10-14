@@ -40,12 +40,20 @@ public class ForceSetIconCommand implements SubCommand {
                 .findFirst()
                 .orElse(null);
 
-        if (okaeriChatIcon == null && !strings[1].equalsIgnoreCase("none")) {
+        ChatIconPlayer chatIconPlayer = ChatIconPlayerManager.getChatIconPlayer(target.getUniqueId());
+
+        if (strings[1].equalsIgnoreCase("none") && okaeriChatIcon == null) {
+            chatIconPlayer.setIcon(null);
+            Text.msg(target, "Your chat icon has been removed.");
+            Text.msg(commandSender, "Removed " + target.getName() + "'s chat icon.");
+            return true;
+        }
+
+        if (okaeriChatIcon == null) {
             Text.msg(commandSender, "<red>Chat icon not found!");
             return true;
         }
 
-        ChatIconPlayer chatIconPlayer = ChatIconPlayerManager.getChatIconPlayer(target.getUniqueId());
         ChatIcon chatIcon = okaeriChatIcon.toChatIcon();
 
         chatIconPlayer.setIcon(chatIcon);
