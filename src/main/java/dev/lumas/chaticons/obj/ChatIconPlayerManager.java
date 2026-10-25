@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatIconPlayerManager {
 
     // concurrent: relational placeholders are resolved off the main thread
-    private static final Map<UUID, ChatIconPlayer> CHAT_ICON_PLAYER_MAP = new ConcurrentHashMap<>();
+    public static final Map<UUID, ChatIconPlayer> CHAT_ICON_PLAYER_MAP = new ConcurrentHashMap<>();
 
     public static void load(@NotNull Player player) {
         ChatIconPlayer chatIconPlayer = new ChatIconPlayer(player.getUniqueId());
