@@ -1,10 +1,6 @@
 package dev.lumas.chaticons.commands;
 
 import dev.lumas.chaticons.ChatIcons;
-import dev.lumas.chaticons.events.Listeners;
-import dev.lumas.chaticons.obj.ChatIcon;
-import dev.lumas.chaticons.obj.ChatIconPlayer;
-import dev.lumas.chaticons.obj.ChatIconPlayerManager;
 import dev.lumas.lumacore.manager.commands.CommandInfo;
 import dev.lumas.lumacore.manager.modules.AutoRegister;
 import dev.lumas.lumacore.manager.modules.RegisterType;
@@ -13,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.logging.Level;
 
 @AutoRegister(RegisterType.SUBCOMMAND)
 @CommandInfo(
@@ -26,13 +23,12 @@ public class ReloadCommand implements SubCommand {
 
     @Override
     public boolean execute(@NotNull ChatIcons chatIcons, CommandSender commandSender, String s, String[] strings) {
-        ChatIcons.getChatIconsConfig().load();
-        ChatIcons.setProviderInstance();
-        for (ChatIconPlayer chatIconPlayer : ChatIconPlayerManager.CHAT_ICON_PLAYER_MAP.values()) {
-            ChatIcon chatIcon = chatIconPlayer.getIcon();
-            if (chatIcon != null) {
-                chatIcon.buildHoverableComponent();
-            }
+        try {
+            ChatIcons.reload();
+        } catch (Exception e) {
+            chatIcons.getLogger().log(Level.SEVERE, "Failed to reload config", e);
+            Text.msg(commandSender, "<red>Failed to reload config.");
+            return true;
         }
         Text.msg(commandSender, "Config reloaded.");
         return true;

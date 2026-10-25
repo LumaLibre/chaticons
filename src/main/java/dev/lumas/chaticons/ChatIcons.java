@@ -57,8 +57,19 @@ public final class ChatIcons extends JavaPlugin {
         }
 
         // open GUIs reference this plugin instance, close them so nothing clicks into a disabled plugin
+        closeOpenGuis();
+    }
+
+    public static void reload() {
+        chatIconsConfig.load();
+        setProviderInstance();
+        ChatIconPlayerManager.refreshIcons();
+        closeOpenGuis();
+    }
+
+    private static void closeOpenGuis() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.getScheduler().execute(this, () -> {
+            player.getScheduler().execute(instance, () -> {
                 if (player.getOpenInventory().getTopInventory().getHolder(false) instanceof ChatIconsGui) {
                     player.closeInventory();
                 }

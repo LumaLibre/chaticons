@@ -63,7 +63,7 @@ public class ChatIcon {
         return description != null ? description : List.of("No description.");
     }
 
-    public void buildHoverableComponent() {
+    private void buildHoverableComponent() {
         List<Component> components = new ArrayList<>();
 
         components.add(Text.mm("<#9de24f><b>\"" + getFormattedName() + "\"</b></#9de24f> <white>").append(component));

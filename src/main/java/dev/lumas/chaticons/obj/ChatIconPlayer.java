@@ -59,13 +59,27 @@ public class ChatIconPlayer {
             this.icon = null;
             return;
         }
-        List<OkaeriChatIcon> okaeriChatIconMap = ChatIcons.getChatIconsConfig().getChatIcons();
-        OkaeriChatIcon okaeriChatIcon = okaeriChatIconMap.stream().filter(it -> activeIconName.equals(it.getName())).findFirst().orElse(null);
+        OkaeriChatIcon okaeriChatIcon = findConfigIcon(activeIconName);
         if (okaeriChatIcon != null) {
             this.icon = okaeriChatIcon.toChatIcon();
         } else {
             Logging.errorLog("Failed to load chat icon for player " + player.getName() + ". Icon with name '" + activeIconName + "' not found in config.");
         }
+    }
+
+    public void refreshIcon() {
+        ChatIcon current = this.icon;
+        if (current == null) {
+            return;
+        }
+        OkaeriChatIcon okaeriChatIcon = findConfigIcon(current.getName());
+        this.icon = okaeriChatIcon != null ? okaeriChatIcon.toChatIcon() : null;
+    }
+
+    @Nullable
+    private static OkaeriChatIcon findConfigIcon(String name) {
+        List<OkaeriChatIcon> okaeriChatIcons = ChatIcons.getChatIconsConfig().getChatIcons();
+        return okaeriChatIcons.stream().filter(it -> name.equals(it.getName())).findFirst().orElse(null);
     }
 
     public void saveIcon(Player player) {
